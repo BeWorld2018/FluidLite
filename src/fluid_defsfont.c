@@ -28,9 +28,13 @@
 #include "fluid_sys.h"
 
 #if SF3_SUPPORT == SF3_XIPH_VORBIS
+#ifdef __MORPHOS__
+#include <proto/vorbisfile.h>
+#else
 #include "vorbis/codec.h"
 #include "vorbis/vorbisenc.h"
 #include "vorbis/vorbisfile.h"
+#endif
 
 struct VorbisData {
     int pos;          // current position in audio->data()
@@ -612,8 +616,11 @@ fluid_sample_t* fluid_defsfont_get_sample(fluid_defsfont_t* sfont, char *s)
         vorbisData.pos  = 0;
         vorbisData.data = (char*)sample->data + sample->start;
         vorbisData.datasize = sample->end + 1 - sample->start;
-
+#ifdef __MORPHOS__
+		if (ov_open_callbacks(&vorbisData, &vf, 0, 0, &ovCallbacks) == 0) { 
+#else
         if (ov_open_callbacks(&vorbisData, &vf, 0, 0, ovCallbacks) == 0) {
+#endif
 #define BUFFER_SIZE 4096
           int bytes_read = 0;
           int section = 0;

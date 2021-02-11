@@ -125,7 +125,7 @@ if(FLUIDLITE_BUILD_STATIC)
     endif()
 endif()
 
-option(FLUIDLITE_BUILD_SHARED "Build shared library" TRUE)
+option(FLUIDLITE_BUILD_SHARED "Build shared library" FALSE)
 if(FLUIDLITE_BUILD_SHARED)
     add_library(${PROJECT_NAME} SHARED ${SOURCES})
 

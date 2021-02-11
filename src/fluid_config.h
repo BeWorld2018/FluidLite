@@ -9,7 +9,12 @@
 
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */
+#ifdef __MORPHOS__
+#define WORDS_BIGENDIAN
+#define SF3_SUPPORT 1
+#else
 #undef WORDS_BIGENDIAN
+#endif
 
 #define SF3_DISABLED 0
 #define SF3_XIPH_VORBIS 1
